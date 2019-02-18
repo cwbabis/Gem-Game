@@ -1,0 +1,19 @@
+body {
+    background:url(../images/tavern.png);
+    background-size: cover;
+    background-color: rgb(101, 67, 33);
+    background-repeat: no-repeat
+  }
+.gem-image {
+    width: 200px;
+    height: 200px;
+}
+h1{
+    color: #ffffff;
+    text-align: center;
+}
+#gems{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
