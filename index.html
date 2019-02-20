@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href=assets\css\style.css>
 
 </head>
+
 <body>
     <div class="container">
         <div style="background:transparent !important" class="jumbotron">
@@ -20,10 +21,12 @@
                 You will be given a random number at the start of the game.
             </p>
             <p>
-                There are four gems below. By clicking on my gems you will add a specific amount of points to your total score.
+                There are four gems below. By clicking on my gems you will add a specific amount of points to your total
+                score.
             </p>
             <p>
-                You win the game by matching your total score to the random number, you lose the game if your total score goes above the random number.
+                You win the game by matching your total score to the random number, you lose the game if your total
+                score goes above the random number.
             </p>
             <p>
                 The value of each gem is hidden from you until you click on it.
@@ -53,7 +56,7 @@
                 <h1>Losses: <span id="losses-text"></span></h1>
             </div>
         </div>
-    </div> 
+    </div>
     <div style="background:transparent !important" class="jumbotron" id="gems">
     </div>
 
@@ -82,15 +85,26 @@
             "https://stemgemsbook.com/wp-content/uploads/2016/03/pink-gem.png",
             "https://stemgemsbook.com/wp-content/uploads/2016/03/purple-gem.png"]
 
-        for (var i = 0; i < numberOptions.length; i++) {
-            var imageGem = $("<img>");
-            imageGem.addClass("gem-image");
-            imageGem.attr("src", pictureOptions[i]);
-            imageGem.attr("data-gemvalue", numberOptions[i]);
-            $("#gems").append(imageGem);
+        var imageGem = "";
+        var gemAssign = function () {
+            for (var i = 0; i < numberOptions.length; i++) {
+                imageGem = $("<img>");
+                imageGem.addClass("gem-image");
+                imageGem.attr("src", pictureOptions[i]);
+                imageGem.attr("data-gemvalue", numberOptions[i]);
+                imageGem.attr("id", "gem" + i);
+                $("#gems").append(imageGem);
+            }
+        }
+        var gemReAssign = function () {
+            for (var i = 0; i < numberOptions.length; i++) {
+                $("#gem" + i).attr("data-gemvalue", numberOptions[i]);
+            }
         }
         var audioElement = document.createElement("audio");
         audioElement.setAttribute("src", "assets/soundfiles/gemEffect.mp3");
+
+        gemAssign();
 
         $(".gem-image").on("click", function () {
             audioElement.play();
@@ -110,6 +124,8 @@
                 wins++;
                 targetNumber = Math.floor(Math.random() * 101) + 19;
                 numberOptions = [Math.floor(Math.random() * 11) + 1, Math.floor(Math.random() * 11) + 1, Math.floor(Math.random() * 11) + 1, Math.floor(Math.random() * 11) + 1];
+                gemReAssign();
+                console.log(numberOptions);
             }
 
             else if (counter >= targetNumber) {
@@ -117,6 +133,8 @@
                 targetNumber = Math.floor(Math.random() * 101) + 19;
                 numberOptions = [Math.floor(Math.random() * 11) + 1, Math.floor(Math.random() * 11) + 1, Math.floor(Math.random() * 11) + 1, Math.floor(Math.random() * 11) + 1];
                 counter = 0;
+                gemReAssign();
+                console.log(numberOptions);
 
             }
             guessText.textContent = targetNumber;
